@@ -3,6 +3,6 @@
 
 #include <stddef.h>
 
-void gemm(size_t, double*, double*, double*);
+void gemm(int, double*, double*, double*);
 
 #endif
