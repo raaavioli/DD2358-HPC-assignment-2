@@ -47,6 +47,6 @@ target_link_libraries(matrix PRIVATE "${CMAKE_SOURCE_DIR}/lib/libc_matrix.so")
 
 add_dependencies(matrix c_matrix)
 
-set_target_properties(gemm_test.out
+set_target_properties(matrix
   PROPERTIES
   LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/")
