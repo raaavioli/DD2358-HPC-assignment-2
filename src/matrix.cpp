@@ -33,7 +33,7 @@ void gemm_wrapper(py::array_t<double> py_c, py::array_t<double> py_a, py::array_
    double* b = (double*) b_buffer.ptr;
    double* c = (double*) c_buffer.ptr;
 
-   gemm(a_buffer.ndim, c, a, b);
+   gemm(a_buffer.shape[0], c, a, b);
 }
 
 PYBIND11_MODULE(matrix, m)
