@@ -1,9 +1,10 @@
 #!/usr/bin/python3
-import os
 import sys
+from pathlib import Path
 
 # Include lib to sys.path, to be able to include matrix
-sys.path.append(os.path.abspath("../lib"))
+#sys.path.appendv(os.path.abspath(os.path.abspath(__file__) + "../lib"))
+sys.path.append(str(Path(__file__).parent.joinpath("../lib").resolve()))
 
 import numpy as np
 from matrix import gemm
