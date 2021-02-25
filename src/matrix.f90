@@ -42,8 +42,13 @@ contains
   function matrix_mult(a, b) result(c)
     type(matrix_t), intent(in) :: a, b
     type(matrix_t) :: c
-    call c%init(a%rows, b%cols)
-    call c_gemm(a%rows, c_loc(c%x), c_loc(a%x), c_loc(b%x))
+    call c%init(b%cols, a%rows)
+    a%x = transpose(a%x)
+    b%x = transpose(b%x)
+    call c_gemm(a%rows, c_loc(c%x), c_loc(b%x), c_loc(a%x))
+    a%x = transpose(a%x)
+    b%x = transpose(b%x)
+    c%x = transpose(c%x)
 
 !   fortran implementation
 !    type(integer) :: i, j, k
