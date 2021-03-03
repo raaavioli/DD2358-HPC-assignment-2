@@ -2,9 +2,9 @@
 
 void gemm(int n, double* c, double* a, double* b) 
 {
-  for (size_t j = 0; j < n; j++)
+  for (size_t i = 0; i < n; i++)
   {
-    for (size_t i = 0; i < n; i++)
+    for (size_t j = 0; j < n; j++)
     {
       // reset c in case it contained some value
       c[i * n + j] = 0;

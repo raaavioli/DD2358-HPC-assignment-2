@@ -45,7 +45,7 @@ contains
     call c%init(b%cols, a%rows)
     a%x = transpose(a%x)
     b%x = transpose(b%x)
-    call c_gemm(a%rows, c_loc(c%x), c_loc(b%x), c_loc(a%x))
+    call c_gemm(a%rows, c_loc(c%x), c_loc(a%x), c_loc(b%x))
     a%x = transpose(a%x)
     b%x = transpose(b%x)
     c%x = transpose(c%x)

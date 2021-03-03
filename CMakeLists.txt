@@ -33,6 +33,6 @@ target_link_libraries(py_matrix PUBLIC matrix)
 # set output target
 set_target_properties(matrix gemm_test.out py_matrix
   PROPERTIES
-  ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/"
-  LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/"
-  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/")
+  ARCHIVE_OUTPUT_DIRECTORY "lib/"
+  LIBRARY_OUTPUT_DIRECTORY "lib/"
+  RUNTIME_OUTPUT_DIRECTORY "bin/")

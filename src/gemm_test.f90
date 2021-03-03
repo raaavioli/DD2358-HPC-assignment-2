@@ -1,23 +1,57 @@
 program gemm_test
   use matrix
   implicit none 
+
   type(matrix_t) :: A, B, C
-  call A%init(3,3)
-  call B%init(3,3)
-  ! Fill A, B with data
-  A%x(1,:) = (/1, 2, 1/)
-  A%x(2,:) = (/2, 1, 1/)
-  A%x(3,:) = (/2, 4, 1/)
-  
-  B%x(1,:) = (/0.0d0, 2.0d0/3, 1.0d0/3/)
-  B%x(2,:) = (/0.0d0, -1.0d0/3, 1.0d0/3/)
-  B%x(3,:) = (/2.0d0, 0.0d0, -1.0d0/)
-  
+  real(kind=8), allocatable :: truth(:,:)
+
+  CHARACTER(len=32) :: arg
+  type(integer) :: matrix_size = 3 ! default to 3
+  integer :: i, j, k
+
+  if (iargc() .gt. 0) then
+    call getarg(1, arg)
+    read(arg, "(I32)") matrix_size
+  end if
+
+  ! init arrays
+  call A%init(matrix_size, matrix_size) 
+  call B%init(matrix_size, matrix_size) 
+  ! call C%init(matrix_size, matrix_size)
+  allocate(truth(matrix_size, matrix_size))
+
+  ! fill A and B
+  call random_number(A%x)
+  call random_number(B%x)
+
+  ! Compute truth
+  truth = matmul(A%x, B%x)
+
+  ! Compute matmul
   C = A * B
-  write(*,*) A%x
-  write(*,*)
-  write(*,*) B%x
-  write(*,*)
-  write(*,*) C%x
-  write(*,*)
+
+  ! print out
+  print *, "Result:"
+  do i = 1,matrix_size
+    print *, (C%x(i,j), j=1,matrix_size)
+  end do
+
+  print *
+
+  print *, "Truth:"
+  do i = 1,matrix_size
+    print *, (truth(i,j), j=1,matrix_size)
+  end do
+
+  do j = 1,matrix_size
+     do i = 1,matrix_size
+        if (abs(C%x(i,j) - truth(i,j)) .gt. 1e-12) then
+            print *, "Error: (", i, ",", j,") -> C:", C%x(i,j), "; truth:", truth(i,j)
+            stop 42
+        end if
+     end do
+  end do
+
+  print *
+  print *, "Pass"
 end program gemm_test
